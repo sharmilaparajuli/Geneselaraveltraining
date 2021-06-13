@@ -28,6 +28,10 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', [ProductsController::class, 'index']);
+Route::get('/checkout' , [ProductsController::class , 'checkout']);
+Route::get('/shop-grid' , [ProductsController::class , 'shop']);
+Route::get('/contact' , [ProductsController::class , 'contact']);
+
 
 Route::get('/categories/{category}', function(category $category) {
     // $products = Product::whereCategoryId($category->id)->get();
@@ -77,5 +81,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/search' , [App\Http\Controllers\SearchController::class , 'search'])->name('search');
 //cart.............
 Route::post('/cart/store' , [App\Http\Controllers\OrderItemsController::class , 'store'])->middleware('auth');
+Route::put('/cart/update/{id}' , [App\Http\Controllers\OrderItemsController::class , 'update']);
+Route::delete('/cart/destroy/{id}' , [App\Http\Controllers\OrderItemsController::class , 'destroy']);
+
+
 
 Route::get('/order' ,[App\Http\Controllers\OrderController::class , 'index']);

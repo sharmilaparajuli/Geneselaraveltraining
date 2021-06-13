@@ -15,9 +15,9 @@
 													<li><a href="#">Service</a></li>
 													<li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
 														<ul class="dropdown">
-															<li><a href="shop-grid.html">Shop Grid</a></li>
-															<li><a href="cart.html">Cart</a></li>
-															<li><a href="checkout.html">Checkout</a></li>
+															<li><a href="{{'/shop-grid'}}">Shop Grid</a></li>
+															<li><a href="{{'/order'}}">Cart</a></li>
+															<li><a href="{{'/checkout'}}">Checkout</a></li>
 														</ul>
 													</li>
 													<li><a href="#">Pages</a></li>									

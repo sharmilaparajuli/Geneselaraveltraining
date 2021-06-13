@@ -12,7 +12,7 @@
                 </div>
                 @endif -->
                 <h2>Create product</h2>
-                <form action="/admin/products/store" method="post">
+                <form action="/admin/products/store" method="post" enctype="multipart/form-data">
                     @csrf
                     product Name:<input type="text" name="product_name" value="{{ old('product_name') }}" id="" class="form-control">
                     @error('product_name')
@@ -43,7 +43,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <br><br>
-
+                <input type="file" name="image" id=""><br><br>
                     <button type="submit" class="form-control">Submit</button>
                 </form>
             </div>

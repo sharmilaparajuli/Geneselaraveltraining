@@ -1,5 +1,8 @@
 @extends('product-layout')
 @section('content')
+@section('menu')
+@include('includes/menu')
+@endsection
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
     <div class="container">
@@ -45,22 +48,36 @@
                             <td class="price" data-title="Price"><span>{{$item->product_price}} </span></td>
                             <td class="qty" data-title="Qty"><!-- Input Order -->
                                 <div class="input-group">
-                                    <div class="button minus">
-                                        <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                <form action="cart/update/{{$item->id}}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="number" min="1" max="50" name="quantity" value="{{$item->quantity}}">
+                                        <input type="submit" class="btn btn-dark" value="Update">
+                                    </form>
+                                     <!-- <div class="button minus">
+                                        <button type="button" class="btn btn-primary btn-number" disabled="disabled"
+                                        data-type="minus" data-field="quant[1]">
                                             <i class="ti-minus"></i>
-                                        </button>
-                                    </div>
+                                        </button> -->
+                                    <!-- </div> 
                                     <input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="1">
                                     <div class="button plus">
                                         <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
                                             <i class="ti-plus"></i>
                                         </button>
-                                    </div>
+                                    </div> --> 
                                 </div>
                                 <!--/ End Input Order -->
                             </td>
                             <td class="total-amount" data-title="Total"><span>{{$item->total}}</span></td>
-                            <td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
+                            <td class="action" data-title="Remove">
+                                <form action="cart/destroy/{{$item->id}}" method="POST">
+                                    @csrf 
+                                    <input type="hidden" name="_method" value="DELETE">
+
+                                    <a href="#" onclick="event.preventDefault(); this.closest('form').submit();"><i class="ti-trash remove-icon"></i></a>
+                                </form>
+                                </td>
                         </tr>
                         @endforeach
                         
@@ -90,14 +107,14 @@
                         <div class="col-lg-4 col-md-7 col-12">
                             <div class="right">
                                 <ul>
-                                    <li>Cart Subtotal<span>{{$order->sub_total}}</span></li>
-                                    <li>Shipping<span>Free</span></li>
+                                    <li>Cart Subtotal<span>{{$order->total_price}}</span></li>
+                                    <li>Shipping<span>{{$order->shipping_price}}</span></li>
                                     <li>You Save<span>Null</span></li>
-                                    <li class="last">You Pay<span>{{$order->total_price}}</span></li>
+                                    <li class="last">You Pay<span>{{$order->sub_total}}</span></li>
                                 </ul>
                                 <div class="button5">
-                                    <a href="#" class="btn">Checkout</a>
-                                    <a href="#" class="btn">Continue shopping</a>
+                                    <a href="{{'/checkout'}}" class="btn">Checkout</a>
+                                    <a href="{{'/'}}" class="btn">Continue shopping</a>
                                 </div>
                             </div>
                         </div>
@@ -155,28 +172,7 @@
 </section>
 <!-- End Shop Newsletter -->
 
-<!-- Start Shop Newsletter  -->
-<section class="shop-newsletter section">
-    <div class="container">
-        <div class="inner-top">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 col-12">
-                    <!-- Start Newsletter Inner -->
-                    <div class="inner">
-                        <h4>Newsletter</h4>
-                        <p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                            <input name="EMAIL" placeholder="Your email address" required="" type="email">
-                            <button class="btn">Subscribe</button>
-                        </form>
-                    </div>
-                    <!-- End Newsletter Inner -->
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Shop Newsletter -->
+
 
 
 

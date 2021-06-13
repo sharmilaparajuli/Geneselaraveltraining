@@ -27,6 +27,7 @@ class ProductController extends Controller
     
     public function store(Request $request)
     {
+        // return $request;
         $validated = $request->validate([
             'product_name' => 'required|max:255|unique:products',
             'product_desc' => 'required|max:255',
@@ -34,12 +35,18 @@ class ProductController extends Controller
             'category_id' => 'required|integer|min:1',
             
         ]);
-    
+       
         $product = new product;
         $product->product_name = $request->input('product_name');
         $product->product_desc = $request->input('product_desc');
         $product->price = $request->input('price');
         $product->category_id = $request->input('category_id');
+        if($request->hasFile('image')){
+            $name = $request->file('image')->getClientOriginalName();
+             $request->file('image')->storeAs('public/images' , $name);
+             $product->image = $name;
+        }
+    // return $product;
         $product->save();
         return redirect('/admin/products');
 

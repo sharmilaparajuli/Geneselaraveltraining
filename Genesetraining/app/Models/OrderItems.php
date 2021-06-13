@@ -11,4 +11,8 @@ class OrderItems extends Model
     protected function product(){
         return $this->belongsTo(product::class);
      }
+     protected function order(){
+         return $this->belongsTo(order::class);
+     }
+
 }
